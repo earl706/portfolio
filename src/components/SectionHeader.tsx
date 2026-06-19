@@ -1,0 +1,62 @@
+import type { ReactNode } from "react"
+
+type SectionHeaderProps = {
+  label: string
+  title: string
+  description?: string
+  icon?: "user" | "cpu" | "folder" | "briefcase" | "mail"
+}
+
+const sectionIcons: Record<NonNullable<SectionHeaderProps["icon"]>, ReactNode> = {
+  user: (
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+    </svg>
+  ),
+  cpu: (
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+    </svg>
+  ),
+  folder: (
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+    </svg>
+  ),
+  briefcase: (
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  ),
+  mail: (
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  ),
+}
+
+export default function SectionHeader({ label, title, description, icon }: SectionHeaderProps) {
+  return (
+    <div className="mb-14">
+      <div className="mb-2 flex items-center gap-3">
+        {icon && (
+          <span className="icon-hover flex h-9 w-9 items-center justify-center border border-neon-cyan/30 bg-neon-cyan/5 text-neon-cyan">
+            {sectionIcons[icon]}
+          </span>
+        )}
+        <p className="font-sans text-xs uppercase tracking-[0.3em] text-neon-pink">
+          // {label}
+        </p>
+      </div>
+      <h2 className="font-display text-2xl font-bold uppercase tracking-wider text-white sm:text-3xl">
+        <span className="neon-cyan">&gt;</span> {title}
+      </h2>
+      <div className="mt-3 h-px w-24 bg-gradient-to-r from-neon-cyan to-neon-pink transition-all duration-700 hover:w-40" />
+      {description && (
+        <p className="mt-5 max-w-2xl font-sans text-sm leading-relaxed text-zinc-500">
+          {description}
+        </p>
+      )}
+    </div>
+  )
+}
