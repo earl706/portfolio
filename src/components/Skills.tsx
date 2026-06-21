@@ -1,60 +1,55 @@
 import { skillCategories } from "../data/portfolio"
+import { useTheme } from "../themes/useTheme"
 import ScrollReveal from "./ScrollReveal"
 import SectionHeader from "./SectionHeader"
 import { TechIcon } from "./TechIcon"
 import { isTechName } from "../lib/tech"
-import { useDesign } from "../hooks/useDesign"
-import { cn } from "../design/cn"
+import { Panel } from "./ui/Themed"
 
 const icons = ["LANG", "FW", "TOOL"]
 
 export default function Skills() {
-  const { theme, typography, layout, motion } = useDesign()
+  const { classes: t } = useTheme()
 
   return (
-    <section id="skills" className={layout.sectionAlt}>
-      <div className={layout.container}>
+    <section id="skills" className={t.sectionAlt}>
+      <div className={t.container}>
         <ScrollReveal variant="right">
           <SectionHeader
-            label="SKILLS"
-            title="LOADOUT MANIFEST"
-            description="Core modules installed and battle-tested across production environments."
+            label="Skills"
+            title={t.textTransform === "uppercase" ? "LOADOUT MANIFEST" : "Skills & Tools"}
+            description={
+              t.textTransform === "uppercase"
+                ? "Core modules installed and battle-tested across production environments."
+                : "Technologies I use to build production-grade applications."
+            }
             icon="cpu"
           />
         </ScrollReveal>
 
-        <div className={layout.skillsGrid}>
+        <div className="grid gap-6 md:grid-cols-3">
           {skillCategories.map((category, i) => (
             <ScrollReveal key={category.title} variant="up" delay={i * 120}>
-              <div className={cn(theme.panel, "group h-full p-6")}>
-                <div className="mb-5 flex items-center gap-3 border-b border-primary/20 pb-4">
-                  <span className={cn(typography.fontDisplay, "text-lg font-bold text-accent", motion.transition)}>
-                    [{icons[i]}]
-                  </span>
-                  <h3 className={cn(typography.heading, "text-sm")}>{category.title}</h3>
+              <Panel className="group h-full p-6">
+                <div className={t.skillDivider}>
+                  <span className={t.skillCategoryCode}>[{icons[i]}]</span>
+                  <h3 className={t.skillCategoryTitle}>{category.title}</h3>
                 </div>
                 <ul className="space-y-3">
                   {category.skills.map((skill, j) => (
-                    <li
-                      key={skill}
-                      className={cn(
-                        "flex items-center gap-3 rounded-sm px-2 py-1.5 text-sm text-muted",
-                        motion.transition,
-                        "hover:bg-primary/5 hover:text-primary",
-                      )}
-                    >
-                      <span className="text-[10px] text-primary/50">
+                    <li key={skill} className={t.skillRow}>
+                      <span className={`text-[10px] ${t.textMuted}`}>
                         {String(j + 1).padStart(2, "0")}
                       </span>
                       {isTechName(skill) && (
-                        <TechIcon name={skill} className="icon-hover h-4 w-4 shrink-0 text-accent/70" />
+                        <TechIcon name={skill} className={`${t.iconHover} h-4 w-4 shrink-0`} />
                       )}
-                      <span className="text-primary/40">&gt;</span>
+                      <span className={t.textAccent}>&gt;</span>
                       <span>{skill}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Panel>
             </ScrollReveal>
           ))}
         </div>

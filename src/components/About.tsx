@@ -1,67 +1,68 @@
 import { profile } from "../data/portfolio"
+import { useTheme } from "../themes/useTheme"
 import ScrollReveal from "./ScrollReveal"
 import SectionHeader from "./SectionHeader"
 import ProfilePhoto from "./ProfilePhoto"
-import { useDesign } from "../hooks/useDesign"
-import { cn } from "../design/cn"
+import { Panel, Tag } from "./ui/Themed"
 
 const traits = [
-  { code: "01", tag: "PERF", title: "FAST_EXEC", desc: "Low-latency apps tuned for speed under load." },
-  { code: "02", tag: "UX", title: "TARGET_LOCK", desc: "Interfaces built around real user signal." },
-  { code: "03", tag: "ARCH", title: "CLEAN_BUILD", desc: "Modular codebases that survive scale." },
-  { code: "04", tag: "SHIP", title: "DEPLOY_MODE", desc: "Ship iterations fast without breaking prod." },
+  { code: "01", tag: "PERF", title: "Fast Execution", desc: "Low-latency apps tuned for speed under load." },
+  { code: "02", tag: "UX", title: "User Focus", desc: "Interfaces built around real user signal." },
+  { code: "03", tag: "ARCH", title: "Clean Architecture", desc: "Modular codebases that survive scale." },
+  { code: "04", tag: "SHIP", title: "Ship Fast", desc: "Ship iterations fast without breaking prod." },
 ]
 
 export default function About() {
-  const { theme, typography, layout, motion, semantic } = useDesign()
+  const { classes: t } = useTheme()
 
   return (
-    <section id="about" className={layout.section}>
-      <div className={layout.container}>
+    <section id="about" className={t.section}>
+      <div className={t.container}>
         <ScrollReveal variant="left">
           <SectionHeader
-            label="ABOUT"
-            title="OPERATOR FILE"
-            description="Decoded profile of a mid-level dev running full-stack builds across the modern web."
+            label="About"
+            title={t.textTransform === "uppercase" ? "OPERATOR FILE" : "About Me"}
+            description={
+              t.textTransform === "uppercase"
+                ? "Decoded profile of a mid-level dev running full-stack builds across the modern web."
+                : "A mid-level developer building end-to-end web applications with modern tools."
+            }
             icon="user"
           />
         </ScrollReveal>
 
-        <div className={layout.aboutGrid}>
+        <div className="grid items-start gap-10 lg:grid-cols-[280px_1fr]">
           <ScrollReveal variant="scale" delay={100} className="hidden lg:block">
             <ProfilePhoto />
           </ScrollReveal>
 
           <div className="space-y-6">
             <ScrollReveal variant="up" delay={150}>
-              <div className={cn(theme.panel, "p-8")}>
-                <p className={cn(typography.label, "text-accent")}>// LOG_ENTRY_001</p>
-                <p className={cn(typography.body, "mt-4")}>
-                  <span className={semantic.primary}>&gt;</span> {profile.level.toUpperCase()} WITH{" "}
-                  {profile.yearsExperience} YEARS RUNNING END-TO-END WEB BUILDS. FRONTEND OPS VIA{" "}
-                  <span className={semantic.highlight}>REACT</span> AND{" "}
-                  <span className={semantic.highlight}>VUE</span>. BACKEND OPS VIA{" "}
-                  <span className={semantic.highlight}>PYTHON</span> AND{" "}
-                  <span className={semantic.highlight}>DJANGO</span>.
+              <Panel className="p-8">
+                <p className={`${t.fontSans} text-xs ${t.textAccent2}`}>
+                  {t.textTransform === "uppercase" ? "// LOG_ENTRY_001" : "Introduction"}
                 </p>
-                <p className={cn(typography.bodyMuted, "mt-4")}>
-                  <span className={semantic.primary}>&gt;</span> OFF-CYCLE: OPEN SOURCE PATCHES, TECH
-                  WRITEUPS, REVERSE-ENGINEERING NEW STACKS.
+                <p className={`mt-4 ${t.fontSans} text-sm leading-relaxed ${t.textMuted}`}>
+                  <span className={t.textAccent}>&gt; </span>
+                  {profile.level} with {profile.yearsExperience} years building end-to-end web
+                  applications. Frontend with React and Vue. Backend with Python and Django.
                 </p>
-              </div>
+              </Panel>
             </ScrollReveal>
 
-            <div className={layout.traitsGrid}>
+            <div className="grid gap-3 sm:grid-cols-2">
               {traits.map((item, i) => (
                 <ScrollReveal key={item.code} variant="up" delay={200 + i * 100}>
-                  <div className={cn(theme.panel, motion.transition, "h-full p-5")}>
+                  <Panel className="h-full p-5">
                     <div className="flex items-center justify-between">
-                      <span className={cn(typography.fontDisplay, "text-xs text-accent")}>[{item.code}]</span>
-                      <span className={theme.tag}>{item.tag}</span>
+                      <span className={t.traitCode}>[{item.code}]</span>
+                      <Tag>{item.tag}</Tag>
                     </div>
-                    <h3 className={cn(typography.heading, "mt-3 text-sm")}>{item.title}</h3>
-                    <p className={cn(typography.bodyMuted, "mt-2")}>{item.desc}</p>
-                  </div>
+                    <h3 className={`mt-3 ${t.fontDisplay} text-sm font-bold ${t.textTransform} tracking-wider ${t.textPrimary}`}>
+                      {t.textTransform === "uppercase" ? item.title.replace(/ /g, "_").toUpperCase() : item.title}
+                    </h3>
+                    <p className={`mt-2 ${t.fontSans} text-xs leading-relaxed ${t.textMuted}`}>{item.desc}</p>
+                  </Panel>
                 </ScrollReveal>
               ))}
             </div>

@@ -1,9 +1,9 @@
 import type { ReactNode } from "react"
 import { profile, socialLinks } from "../data/portfolio"
+import { useTheme } from "../themes/useTheme"
 import ScrollReveal from "./ScrollReveal"
 import SectionHeader from "./SectionHeader"
-import { useDesign } from "../hooks/useDesign"
-import { cn } from "../design/cn"
+import { BtnPrimary, Panel } from "./ui/Themed"
 
 const icons: Record<string, ReactNode> = {
   github: (
@@ -24,71 +24,84 @@ const icons: Record<string, ReactNode> = {
 }
 
 export default function Contact() {
-  const { theme, typography, layout, motion } = useDesign()
+  const { classes: t } = useTheme()
 
   return (
-    <section id="contact" className={layout.section}>
-      <div className={layout.container}>
+    <section id="contact" className={t.section}>
+      <div className={t.container}>
         <ScrollReveal variant="up">
           <SectionHeader
-            label="CONTACT"
-            title="OPEN CHANNEL"
-            description="Transmit a message. Uplink response expected within 24 hours."
+            label="Contact"
+            title={t.textTransform === "uppercase" ? "OPEN CHANNEL" : "Get in Touch"}
+            description={
+              t.textTransform === "uppercase"
+                ? "Transmit a message. Uplink response expected within 24 hours."
+                : "Open to freelance projects and full-time roles. I typically respond within 24 hours."
+            }
             icon="mail"
           />
         </ScrollReveal>
 
-        <div className={layout.contactGrid}>
-          <ScrollReveal variant="left" delay={100}>
-            <form className={cn(theme.panel, "space-y-5 p-8")} onSubmit={(e) => e.preventDefault()}>
-              <p className={cn(typography.label, "text-accent")}>// INCOMING_TRANSMISSION</p>
-              <div>
-                <label htmlFor="name" className={cn(typography.label, "mb-2 block text-muted")}>
-                  Sender_ID
-                </label>
-                <input id="name" type="text" placeholder="ENTER_NAME" className={theme.input} />
-              </div>
-              <div>
-                <label htmlFor="email" className={cn(typography.label, "mb-2 block text-muted")}>
-                  Return_Address
-                </label>
-                <input id="email" type="email" placeholder="user@domain.net" className={theme.input} />
-              </div>
-              <div>
-                <label htmlFor="message" className={cn(typography.label, "mb-2 block text-muted")}>
-                  Payload
-                </label>
-                <textarea id="message" rows={5} placeholder="TRANSMIT MESSAGE..." className={cn(theme.input, "resize-none")} />
-              </div>
-              <button type="submit" className={cn(theme.btnPrimary, motion.transition, "w-full justify-center")}>
-                TRANSMIT
-              </button>
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch">
+          <ScrollReveal variant="left" delay={100} className="h-full">
+            <form className="h-full" onSubmit={(e) => e.preventDefault()}>
+              <Panel className="flex h-full flex-col space-y-5 p-8">
+                <p className={`${t.fontSans} text-[10px] ${t.textTransform} tracking-widest ${t.textAccent2}`}>
+                  {t.textTransform === "uppercase" ? "// INCOMING_TRANSMISSION" : "Send a message"}
+                </p>
+                <div>
+                  <label htmlFor="name" className={t.contactLabel}>Name</label>
+                  <input id="name" type="text" placeholder="Your name" className={t.input} />
+                </div>
+                <div>
+                  <label htmlFor="email" className={t.contactLabel}>Email</label>
+                  <input id="email" type="email" placeholder="you@email.com" className={t.input} />
+                </div>
+                <div className="flex flex-1 flex-col">
+                  <label htmlFor="message" className={t.contactLabel}>Message</label>
+                  <textarea id="message" rows={5} placeholder="Your message..." className={`${t.input} min-h-[120px] flex-1 resize-none`} />
+                </div>
+                <BtnPrimary type="submit" className="mt-auto w-full justify-center">
+                  {t.textTransform === "uppercase" ? "TRANSMIT" : "Send Message"}
+                </BtnPrimary>
+              </Panel>
             </form>
           </ScrollReveal>
 
-          <ScrollReveal variant="right" delay={200}>
-            <div className="flex h-full flex-col justify-center">
-              <div className={cn(theme.panel, "p-8")}>
-                <h3 className={cn(typography.heading, "text-sm")}>UPLINK STATUS</h3>
-                <p className={cn(typography.bodyMuted, "mt-3")}>
-                  CHANNEL OPEN FOR FREELANCE CONTRACTS AND FULL-TIME ROLES.
+          <ScrollReveal variant="right" delay={200} className="h-full">
+            <Panel className="flex h-full flex-col p-8">
+                <h3 className={`${t.fontDisplay} text-sm font-bold ${t.textTransform} tracking-wider ${t.textPrimary}`}>
+                  {t.textTransform === "uppercase" ? "UPLINK STATUS" : "Contact Info"}
+                </h3>
+                <p className={`mt-3 ${t.fontSans} text-xs leading-relaxed ${t.textMuted}`}>
+                  Channel open for freelance contracts and full-time roles.
                 </p>
 
-                <div className="mt-8 space-y-4">
-                  <a
-                    href={`mailto:${profile.email}`}
-                    className={cn("group flex items-center gap-4 text-xs text-primary", motion.transition, "hover:translate-x-2")}
-                  >
-                    <span className={cn(theme.iconBox, motion.transition)}>@</span>
+              <div className="mt-auto space-y-4">
+                  <a href={`mailto:${profile.email}`} className={t.contactLink}>
+                    {t.contactIconBox !== "hidden" && (
+                      <span className={t.contactIconBox}>
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </span>
+                    )}
                     {profile.email}
                   </a>
-                  <p className="flex items-center gap-4 text-xs text-muted">
-                    <span className={cn(theme.iconBox, "text-accent")}>#</span>
-                    REMOTE // GLOBAL
+                  <p className={`flex items-center gap-4 ${t.fontSans} text-xs ${t.textMuted}`}>
+                    {t.contactIconBox !== "hidden" && (
+                      <span className={t.contactIconBox}>
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </span>
+                    )}
+                    Remote / Global
                   </p>
                 </div>
 
-                <div className="mt-8 flex gap-3">
+              <div className="mt-auto flex gap-3 pt-8">
                   {socialLinks.map((link) => (
                     <a
                       key={link.label}
@@ -96,14 +109,13 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={link.label}
-                      className={cn(theme.iconBox, "icon-hover text-muted hover:text-accent")}
+                      className={t.socialLink}
                     >
                       {icons[link.icon]}
                     </a>
                   ))}
                 </div>
-              </div>
-            </div>
+            </Panel>
           </ScrollReveal>
         </div>
       </div>

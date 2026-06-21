@@ -1,6 +1,5 @@
 import type { ReactNode } from "react"
-import { useDesign } from "../hooks/useDesign"
-import { cn } from "../design/cn"
+import { useTheme } from "../themes/useTheme"
 
 type SectionHeaderProps = {
   label: string
@@ -38,23 +37,25 @@ const sectionIcons: Record<NonNullable<SectionHeaderProps["icon"]>, ReactNode> =
 }
 
 export default function SectionHeader({ label, title, description, icon }: SectionHeaderProps) {
-  const { theme, typography, motion } = useDesign()
+  const { classes: t } = useTheme()
+  const prefix = t.sectionTitlePrefix === "hidden" ? "" : t.sectionTitlePrefix
 
   return (
     <div className="mb-14">
       <div className="mb-2 flex items-center gap-3">
         {icon && (
-          <span className={cn(theme.iconBox, "icon-hover h-9 w-9")}>
-            {sectionIcons[icon]}
-          </span>
+          <span className={`${t.iconHover} ${t.iconWrap}`}>{sectionIcons[icon]}</span>
         )}
-        <p className={typography.label}>// {label}</p>
+        <p className={t.sectionLabel}>
+          {t.textTransform === "uppercase" ? `// ${label}` : label}
+        </p>
       </div>
-      <h2 className={cn(typography.heading, "text-2xl sm:text-3xl")}>
-        <span className={theme.headingPrefix}>&gt;</span> {title}
+      <h2 className={t.sectionTitle}>
+        {prefix && <span className={t.sectionTitlePrefix}>&gt; </span>}
+        {title}
       </h2>
-      <div className={cn(theme.sectionDivider, motion.transitionSlow)} />
-      {description && <p className={cn(typography.body, "mt-5 max-w-2xl")}>{description}</p>}
+      <div className={t.sectionDivider} />
+      {description && <p className={t.sectionDesc}>{description}</p>}
     </div>
   )
 }
