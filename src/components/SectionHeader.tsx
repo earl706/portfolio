@@ -1,4 +1,6 @@
 import type { ReactNode } from "react"
+import { useDesign } from "../hooks/useDesign"
+import { cn } from "../design/cn"
 
 type SectionHeaderProps = {
   label: string
@@ -36,27 +38,23 @@ const sectionIcons: Record<NonNullable<SectionHeaderProps["icon"]>, ReactNode> =
 }
 
 export default function SectionHeader({ label, title, description, icon }: SectionHeaderProps) {
+  const { theme, typography, motion } = useDesign()
+
   return (
     <div className="mb-14">
       <div className="mb-2 flex items-center gap-3">
         {icon && (
-          <span className="icon-hover flex h-9 w-9 items-center justify-center border border-neon-cyan/30 bg-neon-cyan/5 text-neon-cyan">
+          <span className={cn(theme.iconBox, "icon-hover h-9 w-9")}>
             {sectionIcons[icon]}
           </span>
         )}
-        <p className="font-sans text-xs uppercase tracking-[0.3em] text-neon-pink">
-          // {label}
-        </p>
+        <p className={typography.label}>// {label}</p>
       </div>
-      <h2 className="font-display text-2xl font-bold uppercase tracking-wider text-white sm:text-3xl">
-        <span className="neon-cyan">&gt;</span> {title}
+      <h2 className={cn(typography.heading, "text-2xl sm:text-3xl")}>
+        <span className={theme.headingPrefix}>&gt;</span> {title}
       </h2>
-      <div className="mt-3 h-px w-24 bg-gradient-to-r from-neon-cyan to-neon-pink transition-all duration-700 hover:w-40" />
-      {description && (
-        <p className="mt-5 max-w-2xl font-sans text-sm leading-relaxed text-zinc-500">
-          {description}
-        </p>
-      )}
+      <div className={cn(theme.sectionDivider, motion.transitionSlow)} />
+      {description && <p className={cn(typography.body, "mt-5 max-w-2xl")}>{description}</p>}
     </div>
   )
 }

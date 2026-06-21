@@ -1,11 +1,16 @@
 import { experience } from "../data/portfolio"
 import ScrollReveal from "./ScrollReveal"
 import SectionHeader from "./SectionHeader"
+import { useDesign } from "../hooks/useDesign"
+import { cn } from "../design/cn"
 
 export default function Experience() {
+  const { theme, typography, layout, motion, semantic, preferences } = useDesign()
+  const isTimeline = preferences.layout === "timeline"
+
   return (
-    <section id="experience" className="border-y border-neon-pink/10 bg-panel/50 px-6 py-24">
-      <div className="mx-auto max-w-6xl">
+    <section id="experience" className={layout.sectionAlt}>
+      <div className={layout.container}>
         <ScrollReveal variant="right">
           <SectionHeader
             label="EXPERIENCE"
@@ -15,31 +20,34 @@ export default function Experience() {
           />
         </ScrollReveal>
 
-        <div className="space-y-6">
+        <div className={layout.experienceList}>
           {experience.map((job, i) => (
             <ScrollReveal key={job.company} variant="left" delay={i * 150}>
-              <article className="cyber-panel group grid gap-4 p-6 md:grid-cols-[140px_1fr]">
-                <div className="border-b border-neon-cyan/20 pb-4 md:border-b-0 md:border-r md:pb-0 md:pr-6">
-                  <span className="font-display text-3xl font-black text-neon-pink/30 transition-all duration-700 group-hover:text-neon-pink/60">
+              <article className={cn(theme.panel, layout.experienceItem, "group", isTimeline && "relative")}>
+                {isTimeline && (
+                  <div className="absolute left-0 top-8 flex h-3 w-3 -translate-x-[7px] rounded-full border-2 border-primary bg-surface" />
+                )}
+                <div className={cn(!isTimeline && "border-b border-primary/20 pb-4 md:border-b-0 md:border-r md:pb-0 md:pr-6")}>
+                  <span className={cn(typography.fontDisplay, "text-3xl font-black text-accent/30", motion.transition, "group-hover:text-accent/60")}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <time className="mt-2 block font-sans text-[10px] uppercase tracking-widest text-zinc-600">
+                  <time className={cn(typography.fontBody, "mt-2 block text-[10px] uppercase tracking-widest text-muted")}>
                     {job.period}
                   </time>
                 </div>
 
                 <div>
-                  <h3 className="font-display text-sm font-bold uppercase tracking-wider text-white transition-colors duration-500 group-hover:text-neon-cyan">
+                  <h3 className={cn(typography.heading, "text-sm", motion.transition, "group-hover:text-primary")}>
                     {job.role}
                   </h3>
-                  <p className="mt-1 font-sans text-xs text-neon-cyan">@{job.company}</p>
+                  <p className={cn(typography.fontBody, "mt-1 text-xs text-primary")}>@{job.company}</p>
                   <ul className="mt-4 space-y-2">
                     {job.highlights.map((item) => (
                       <li
                         key={item}
-                        className="flex gap-3 font-sans text-xs leading-relaxed text-zinc-600 transition-all duration-500 hover:translate-x-1 hover:text-zinc-400"
+                        className={cn(typography.bodyMuted, "flex gap-3", motion.transition, "hover:translate-x-1")}
                       >
-                        <span className="shrink-0 text-neon-pink">&gt;&gt;</span>
+                        <span className={cn("shrink-0", semantic.accent)}>&gt;&gt;</span>
                         {item}
                       </li>
                     ))}

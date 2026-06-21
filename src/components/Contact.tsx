@@ -2,6 +2,8 @@ import type { ReactNode } from "react"
 import { profile, socialLinks } from "../data/portfolio"
 import ScrollReveal from "./ScrollReveal"
 import SectionHeader from "./SectionHeader"
+import { useDesign } from "../hooks/useDesign"
+import { cn } from "../design/cn"
 
 const icons: Record<string, ReactNode> = {
   github: (
@@ -21,13 +23,12 @@ const icons: Record<string, ReactNode> = {
   ),
 }
 
-const inputClass =
-  "cyber-input w-full border border-neon-cyan/20 bg-black px-4 py-3 font-sans text-sm text-neon-cyan placeholder:text-zinc-700 outline-none"
-
 export default function Contact() {
+  const { theme, typography, layout, motion } = useDesign()
+
   return (
-    <section id="contact" className="px-6 py-24">
-      <div className="mx-auto max-w-6xl">
+    <section id="contact" className={layout.section}>
+      <div className={layout.container}>
         <ScrollReveal variant="up">
           <SectionHeader
             label="CONTACT"
@@ -37,36 +38,29 @@ export default function Contact() {
           />
         </ScrollReveal>
 
-        <div className="grid gap-10 lg:grid-cols-2">
+        <div className={layout.contactGrid}>
           <ScrollReveal variant="left" delay={100}>
-            <form className="cyber-panel space-y-5 p-8" onSubmit={(e) => e.preventDefault()}>
-              <p className="font-sans text-[10px] uppercase tracking-widest text-neon-pink">
-                // INCOMING_TRANSMISSION
-              </p>
+            <form className={cn(theme.panel, "space-y-5 p-8")} onSubmit={(e) => e.preventDefault()}>
+              <p className={cn(typography.label, "text-accent")}>// INCOMING_TRANSMISSION</p>
               <div>
-                <label htmlFor="name" className="mb-2 block font-sans text-xs uppercase tracking-widest text-zinc-600">
+                <label htmlFor="name" className={cn(typography.label, "mb-2 block text-muted")}>
                   Sender_ID
                 </label>
-                <input id="name" type="text" placeholder="ENTER_NAME" className={inputClass} />
+                <input id="name" type="text" placeholder="ENTER_NAME" className={theme.input} />
               </div>
               <div>
-                <label htmlFor="email" className="mb-2 block font-sans text-xs uppercase tracking-widest text-zinc-600">
+                <label htmlFor="email" className={cn(typography.label, "mb-2 block text-muted")}>
                   Return_Address
                 </label>
-                <input id="email" type="email" placeholder="user@domain.net" className={inputClass} />
+                <input id="email" type="email" placeholder="user@domain.net" className={theme.input} />
               </div>
               <div>
-                <label htmlFor="message" className="mb-2 block font-sans text-xs uppercase tracking-widest text-zinc-600">
+                <label htmlFor="message" className={cn(typography.label, "mb-2 block text-muted")}>
                   Payload
                 </label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  placeholder="TRANSMIT MESSAGE..."
-                  className={`${inputClass} resize-none`}
-                />
+                <textarea id="message" rows={5} placeholder="TRANSMIT MESSAGE..." className={cn(theme.input, "resize-none")} />
               </div>
-              <button type="submit" className="cyber-btn w-full justify-center">
+              <button type="submit" className={cn(theme.btnPrimary, motion.transition, "w-full justify-center")}>
                 TRANSMIT
               </button>
             </form>
@@ -74,33 +68,22 @@ export default function Contact() {
 
           <ScrollReveal variant="right" delay={200}>
             <div className="flex h-full flex-col justify-center">
-              <div className="cyber-panel p-8">
-                <h3 className="font-display text-sm font-bold uppercase tracking-widest text-white">
-                  UPLINK STATUS
-                </h3>
-                <p className="mt-3 font-sans text-xs leading-relaxed text-zinc-600">
+              <div className={cn(theme.panel, "p-8")}>
+                <h3 className={cn(typography.heading, "text-sm")}>UPLINK STATUS</h3>
+                <p className={cn(typography.bodyMuted, "mt-3")}>
                   CHANNEL OPEN FOR FREELANCE CONTRACTS AND FULL-TIME ROLES.
                 </p>
 
                 <div className="mt-8 space-y-4">
                   <a
                     href={`mailto:${profile.email}`}
-                    className="group flex items-center gap-4 font-sans text-xs text-neon-cyan transition-all duration-500 hover:translate-x-2 hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]"
+                    className={cn("group flex items-center gap-4 text-xs text-primary", motion.transition, "hover:translate-x-2")}
                   >
-                    <span className="flex h-10 w-10 items-center justify-center border border-neon-cyan/30 bg-neon-cyan/5 transition-all duration-500 group-hover:border-neon-cyan group-hover:shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </span>
+                    <span className={cn(theme.iconBox, motion.transition)}>@</span>
                     {profile.email}
                   </a>
-                  <p className="flex items-center gap-4 font-sans text-xs text-zinc-500">
-                    <span className="flex h-10 w-10 items-center justify-center border border-neon-pink/30 bg-neon-pink/5 text-neon-pink transition-all duration-500 hover:shadow-[0_0_15px_rgba(255,42,109,0.3)]">
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </span>
+                  <p className="flex items-center gap-4 text-xs text-muted">
+                    <span className={cn(theme.iconBox, "text-accent")}>#</span>
                     REMOTE // GLOBAL
                   </p>
                 </div>
@@ -113,7 +96,7 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={link.label}
-                      className="icon-hover flex h-10 w-10 items-center justify-center border border-neon-cyan/20 text-zinc-600 transition-all duration-500 hover:border-neon-pink/50 hover:bg-neon-pink/10 hover:text-neon-pink"
+                      className={cn(theme.iconBox, "icon-hover text-muted hover:text-accent")}
                     >
                       {icons[link.icon]}
                     </a>
