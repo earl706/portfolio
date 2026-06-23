@@ -128,4 +128,29 @@ html {
   .photo-scan { animation: none; }
   [data-theme="cyberpunk"][data-color-mode="dark"] .theme-glitch::before,
   [data-theme="cyberpunk"][data-color-mode="dark"] .theme-glitch::after { animation: none; }
+  .theme-picker-overlay,
+  .theme-picker-panel {
+    transition-duration: 0.15s;
+  }
+  .theme-picker-panel { transform: none; }
+}
+
+/* Theme picker pop-up */
+.theme-picker-overlay {
+  opacity: 0;
+  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-picker-overlay.is-open {
+  opacity: 1;
+}
+
+.theme-picker-panel {
+  transform: scale(0.94) translateY(16px);
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.theme-picker-panel.is-open {
+  transform: scale(1) translateY(0);
 }
