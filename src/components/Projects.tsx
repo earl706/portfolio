@@ -1,9 +1,11 @@
+import type { ProjectPreviewType } from "../data/portfolio"
 import { projects } from "../data/portfolio"
 import { useTheme } from "../themes/useTheme"
+import ProjectPreview from "./ProjectPreview"
 import ScrollReveal from "./ScrollReveal"
 import SectionHeader from "./SectionHeader"
 import { TechIcon } from "./TechIcon"
-import { isTechName, type TechName } from "../lib/tech"
+import { isTechName } from "../lib/tech"
 import { Panel, Tag } from "./ui/Themed"
 
 function ProjectCard({
@@ -13,6 +15,7 @@ function ProjectCard({
   liveUrl,
   repoUrl,
   featured,
+  preview,
 }: {
   title: string
   description: string
@@ -20,9 +23,9 @@ function ProjectCard({
   liveUrl: string
   repoUrl: string
   featured: boolean
+  preview: ProjectPreviewType
 }) {
   const { classes: t } = useTheme()
-  const primaryTag = tags.find((tag): tag is TechName => isTechName(tag)) ?? "React"
   const thumbVisible = t.projectThumb !== "hidden"
 
   return (
@@ -33,9 +36,10 @@ function ProjectCard({
     >
       {thumbVisible && (
         <div className={`${t.projectThumb} ${featured ? "min-h-[180px]" : "h-36"}`}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <TechIcon name={primaryTag} className={`${t.iconHover} h-16 w-16 opacity-30`} />
-          </div>
+          <ProjectPreview
+            type={preview}
+            className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.02]"
+          />
           {featured && (
             <span className={t.projectFeatured}>
               {t.textTransform === "uppercase" ? "PRIORITY" : "Featured"}
@@ -80,14 +84,15 @@ export default function Projects() {
   const { classes: t } = useTheme()
 
   return (
-    <section id="projects" className={t.section}>
+    <section id="projects" className={`${t.section} section-spotlight relative`}>
       <div className={t.container}>
-        <ScrollReveal variant="left">
+        <ScrollReveal variant="fade">
           <SectionHeader
             label="Projects"
             title={t.textTransform === "uppercase" ? "DEPLOYED BUILDS" : "Selected Work"}
             description="Production-grade systems shipped across commerce, collaboration, and SaaS domains."
             icon="folder"
+            emphasis="primary"
           />
         </ScrollReveal>
 

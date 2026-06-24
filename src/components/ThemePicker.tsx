@@ -4,6 +4,7 @@ import type { ColorMode, ThemeName } from "../themes/types"
 import ColorModeToggle from "./ColorModeToggle"
 import { ThemeIcon } from "./icons/ThemeIcons"
 import { themeShortLabels } from "../themes/themeLabels"
+import ThemePreviewStrip from "./ThemePreviewStrip"
 
 const PICKER_TRANSITION_MS = 320
 
@@ -21,6 +22,15 @@ function ThemePickerDialog({
   const { themeList, confirmTheme, closePicker, hasSelectedTheme, classes: t } = useTheme()
   const [selected, setSelected] = useState<ThemeName>(themeName)
   const [previewMode, setPreviewMode] = useState<ColorMode>(colorMode)
+  const themeCount = themeList.length
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && hasSelectedTheme) closePicker()
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [closePicker, hasSelectedTheme])
 
   return (
     <div
@@ -30,17 +40,17 @@ function ThemePickerDialog({
       aria-label="Choose a visual theme"
     >
       <div
-        className={`theme-picker-panel ${visible ? "is-open" : ""} ${t.panel} w-full max-w-4xl px-4 py-6 sm:px-6 sm:py-8`}
+        className={`theme-picker-panel ${visible ? "is-open" : ""} w-full max-w-3xl rounded-sm border border-current/10 bg-[var(--theme-panel)] px-4 py-5 shadow-lg sm:px-5 sm:py-6`}
         onTransitionEnd={(e) => {
           if (e.target !== e.currentTarget || e.propertyName !== "transform") return
           onPanelTransitionEnd()
         }}
       >
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-3">
           <div className="min-w-0 flex-1 text-center sm:text-left">
-            <h1 className={`${t.pickerTitle} text-2xl leading-tight sm:text-3xl`}>Pick a Theme</h1>
-            <p className={`${t.pickerSubtitle} mt-1 text-sm leading-snug`}>
-              Five identities. Dark or light.
+            <h1 className={`${t.pickerTitle} text-xl leading-tight sm:text-2xl`}>Pick a Theme</h1>
+            <p className={`${t.pickerSubtitle} mt-1 text-xs leading-snug sm:text-sm`}>
+              {themeCount} identities. Dark or light. Press Esc to close.
             </p>
           </div>
           <div className="flex h-9 shrink-0 items-center gap-2">
@@ -58,7 +68,11 @@ function ThemePickerDialog({
           </div>
         </div>
 
-        <div className="mt-6 grid grid-cols-5 gap-1.5 sm:gap-2">
+        <div className="mt-4">
+          <ThemePreviewStrip themeName={selected} colorMode={previewMode} />
+        </div>
+
+        <div className="mt-4 grid grid-cols-5 gap-1.5 sm:gap-2">
           {themeList.map((config) => {
             const isActive = selected === config.name
             return (
@@ -66,15 +80,15 @@ function ThemePickerDialog({
                 key={config.name}
                 type="button"
                 onClick={() => setSelected(config.name)}
-                className={`${t.pickerCard} flex h-[5.75rem] !p-2 cursor-pointer flex-col items-center justify-between py-2.5 text-center transition-all sm:h-[6.5rem] sm:!p-2.5 sm:py-3 ${
+                className={`${t.pickerCard} flex h-[5.25rem] !p-2 cursor-pointer flex-col items-center justify-between py-2 text-center transition-all sm:h-[5.75rem] sm:!p-2 sm:py-2.5 ${
                   isActive ? t.pickerCardActive : ""
                 }`}
               >
-                <span className={`flex h-9 w-9 shrink-0 items-center justify-center ${t.textAccent}`}>
-                  <ThemeIcon name={config.name} className="h-7 w-7 sm:h-8 sm:w-8" />
+                <span className={`flex h-8 w-8 shrink-0 items-center justify-center ${t.textAccent}`}>
+                  <ThemeIcon name={config.name} className="h-6 w-6 sm:h-7 sm:w-7" />
                 </span>
                 <p
-                  className={`${t.pickerCardLabel} !mt-0 w-full px-0.5 text-center text-[10px] leading-tight sm:text-xs ${
+                  className={`${t.pickerCardLabel} !mt-0 w-full px-0.5 text-center text-[10px] leading-tight sm:text-[11px] ${
                     t.textTransform === "uppercase" ? "uppercase tracking-wide" : ""
                   } ${t.textPrimary}`}
                 >
@@ -85,7 +99,7 @@ function ThemePickerDialog({
           })}
         </div>
 
-        <div className="mt-6 flex justify-center border-t border-current/10 pt-5">
+        <div className="mt-5 flex justify-center border-t border-current/10 pt-4">
           <button
             type="button"
             disabled={!selected}
@@ -101,7 +115,7 @@ function ThemePickerDialog({
 }
 
 export default function ThemePicker() {
-  const { showPicker, themeName, colorMode } = useTheme()
+  const { showPicker, themeName, colorMode, pickerSession } = useTheme()
   const [mounted, setMounted] = useState(showPicker)
   const [visible, setVisible] = useState(false)
 
@@ -142,6 +156,7 @@ export default function ThemePicker() {
 
   return (
     <ThemePickerDialog
+      key={pickerSession}
       themeName={themeName}
       colorMode={colorMode}
       visible={visible}

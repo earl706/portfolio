@@ -16,16 +16,7 @@ export default function Hero() {
   return (
     <section id="hero" className={t.hero}>
       {t.showGridFloor && (
-        <div
-          className="pointer-events-none absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,42,109,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-            transform: "perspective(500px) rotateX(60deg) translateY(30%)",
-            transformOrigin: "center bottom",
-          }}
-        />
+        <div className="theme-grid-floor pointer-events-none absolute inset-0 opacity-20" />
       )}
 
       <div className={`${t.container} relative grid items-center gap-12 lg:grid-cols-[1fr_auto]`}>

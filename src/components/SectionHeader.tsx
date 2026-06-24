@@ -6,6 +6,7 @@ type SectionHeaderProps = {
   title: string
   description?: string
   icon?: "user" | "cpu" | "folder" | "briefcase" | "mail"
+  emphasis?: "primary" | "secondary"
 }
 
 const sectionIcons: Record<NonNullable<SectionHeaderProps["icon"]>, ReactNode> = {
@@ -36,12 +37,19 @@ const sectionIcons: Record<NonNullable<SectionHeaderProps["icon"]>, ReactNode> =
   ),
 }
 
-export default function SectionHeader({ label, title, description, icon }: SectionHeaderProps) {
+export default function SectionHeader({
+  label,
+  title,
+  description,
+  icon,
+  emphasis = "secondary",
+}: SectionHeaderProps) {
   const { classes: t } = useTheme()
   const prefix = t.sectionTitlePrefix === "hidden" ? "" : t.sectionTitlePrefix
+  const isPrimary = emphasis === "primary"
 
   return (
-    <div className="mb-14">
+    <div className={isPrimary ? "section-header-primary mb-16" : "section-header-secondary mb-10"}>
       <div className="mb-2 flex items-center gap-3">
         {icon && (
           <span className={`${t.iconHover} ${t.iconWrap}`}>{sectionIcons[icon]}</span>
@@ -50,7 +58,7 @@ export default function SectionHeader({ label, title, description, icon }: Secti
           {t.textTransform === "uppercase" ? `// ${label}` : label}
         </p>
       </div>
-      <h2 className={t.sectionTitle}>
+      <h2 className={`${t.sectionTitle} ${isPrimary ? "section-title-primary" : ""}`}>
         {prefix && <span className={t.sectionTitlePrefix}>&gt; </span>}
         {title}
       </h2>

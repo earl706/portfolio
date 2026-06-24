@@ -3,7 +3,8 @@ import type { ColorMode, ThemeName } from "./types"
 const THEME_KEY = "portfolio-theme"
 const MODES_KEY = "portfolio-color-modes"
 
-export const DEFAULT_THEME: ThemeName = "cyberpunk"
+export const DEFAULT_THEME: ThemeName = "neo_editorial"
+export const FLAGSHIP_THEME: ThemeName = "neo_editorial"
 
 const THEME_NAMES: ThemeName[] = [
   "cyberpunk",

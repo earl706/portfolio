@@ -154,3 +154,94 @@ html {
 .theme-picker-panel.is-open {
   transform: scale(1) translateY(0);
 }
+
+/* Section hierarchy */
+.section-spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-spotlight::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 45%;
+  background: radial-gradient(
+    ellipse 75% 55% at 50% 0%,
+    color-mix(in srgb, var(--theme-accent) 7%, transparent),
+    transparent
+  );
+}
+
+.section-secondary {
+  --reveal-duration: 550ms;
+}
+
+.section-title-primary {
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 640px) {
+  .section-title-primary {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+  }
+}
+
+/* Theme-aware grid floor (cyberpunk hero) */
+.theme-grid-floor {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--theme-highlight) 40%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--theme-accent) 30%, transparent) 1px, transparent 1px);
+  background-size: 80px 80px;
+  transform: perspective(500px) rotateX(60deg) translateY(30%);
+  transform-origin: center bottom;
+}
+
+/* Portrait initials fallback */
+.portrait-initials {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--theme-accent) 22%, var(--theme-bg)),
+    color-mix(in srgb, var(--theme-accent2) 18%, var(--theme-panel))
+  );
+}
+
+/* Project UI previews */
+.project-preview {
+  background: color-mix(in srgb, var(--theme-panel) 92%, var(--theme-bg));
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-accent) 15%, transparent);
+}
+
+.project-preview-chrome {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-accent) 12%, transparent);
+}
+
+.project-preview-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--theme-accent) 55%, transparent);
+}
+
+.project-preview-body {
+  height: calc(100% - 29px);
+}
+
+.project-preview-block {
+  background: color-mix(in srgb, var(--theme-accent) 35%, transparent);
+  border-radius: 2px;
+}
+
+.project-preview-card {
+  background: color-mix(in srgb, var(--theme-bg) 70%, var(--theme-panel));
+  border: 1px solid color-mix(in srgb, var(--theme-accent) 18%, transparent);
+}
+
+.theme-preview-strip {
+  color: var(--theme-highlight);
+}

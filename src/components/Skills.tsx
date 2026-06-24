@@ -12,9 +12,9 @@ export default function Skills() {
   const { classes: t } = useTheme()
 
   return (
-    <section id="skills" className={t.sectionAlt}>
+    <section id="skills" className={`${t.sectionAlt} section-secondary`}>
       <div className={t.container}>
-        <ScrollReveal variant="right">
+        <ScrollReveal variant="fade">
           <SectionHeader
             label="Skills"
             title={t.textTransform === "uppercase" ? "LOADOUT MANIFEST" : "Skills & Tools"}
@@ -24,12 +24,13 @@ export default function Skills() {
                 : "Technologies I use to build production-grade applications."
             }
             icon="cpu"
+            emphasis="secondary"
           />
         </ScrollReveal>
 
         <div className="grid gap-6 md:grid-cols-3">
           {skillCategories.map((category, i) => (
-            <ScrollReveal key={category.title} variant="up" delay={i * 120}>
+            <ScrollReveal key={category.title} variant="fade" delay={i * 80}>
               <Panel className="group h-full p-6">
                 <div className={t.skillDivider}>
                   <span className={t.skillCategoryCode}>[{icons[i]}]</span>

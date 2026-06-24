@@ -141,7 +141,7 @@ const lightBundle = {
     settingsPanel: "mx-auto mt-16 max-w-4xl px-6",
     revealDuration: "700ms",
     showTerminal: false,
-    showMarquee: true,
+    showMarquee: false,
     showPhotoScan: false,
     showScanlines: false,
     showGlitch: false,

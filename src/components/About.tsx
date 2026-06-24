@@ -16,9 +16,9 @@ export default function About() {
   const { classes: t } = useTheme()
 
   return (
-    <section id="about" className={t.section}>
+    <section id="about" className={`${t.section} section-secondary`}>
       <div className={t.container}>
-        <ScrollReveal variant="left">
+        <ScrollReveal variant="fade">
           <SectionHeader
             label="About"
             title={t.textTransform === "uppercase" ? "OPERATOR FILE" : "About Me"}
@@ -28,16 +28,17 @@ export default function About() {
                 : "A mid-level developer building end-to-end web applications with modern tools."
             }
             icon="user"
+            emphasis="secondary"
           />
         </ScrollReveal>
 
         <div className="grid items-start gap-10 lg:grid-cols-[280px_1fr]">
-          <ScrollReveal variant="scale" delay={100} className="hidden lg:block">
+          <ScrollReveal variant="fade" delay={80} className="hidden lg:block">
             <ProfilePhoto />
           </ScrollReveal>
 
           <div className="space-y-6">
-            <ScrollReveal variant="up" delay={150}>
+            <ScrollReveal variant="fade" delay={120}>
               <Panel className="p-8">
                 <p className={`${t.fontSans} text-xs ${t.textAccent2}`}>
                   {t.textTransform === "uppercase" ? "// LOG_ENTRY_001" : "Introduction"}
@@ -52,7 +53,7 @@ export default function About() {
 
             <div className="grid gap-3 sm:grid-cols-2">
               {traits.map((item, i) => (
-                <ScrollReveal key={item.code} variant="up" delay={200 + i * 100}>
+                <ScrollReveal key={item.code} variant="fade" delay={160 + i * 60}>
                   <Panel className="h-full p-5">
                     <div className="flex items-center justify-between">
                       <span className={t.traitCode}>[{item.code}]</span>

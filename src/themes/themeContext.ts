@@ -11,6 +11,7 @@ export type ThemeContextValue = {
   setColorMode: (mode: ColorMode) => void
   toggleColorMode: () => void
   showPicker: boolean
+  pickerSession: number
   openPicker: () => void
   closePicker: () => void
   confirmTheme: (name: ThemeName, mode?: ColorMode) => void

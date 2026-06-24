@@ -8,9 +8,9 @@ export default function Experience() {
   const { classes: t } = useTheme()
 
   return (
-    <section id="experience" className={t.sectionAlt}>
+    <section id="experience" className={`${t.sectionAlt} section-secondary`}>
       <div className={t.container}>
-        <ScrollReveal variant="right">
+        <ScrollReveal variant="fade">
           <SectionHeader
             label="Experience"
             title={t.textTransform === "uppercase" ? "MISSION LOG" : "Experience"}
@@ -20,12 +20,13 @@ export default function Experience() {
                 : "Where I have built and shipped production software."
             }
             icon="briefcase"
+            emphasis="secondary"
           />
         </ScrollReveal>
 
         <div className="space-y-6">
           {experience.map((job, i) => (
-            <ScrollReveal key={job.company} variant="left" delay={i * 150}>
+            <ScrollReveal key={job.company} variant="fade" delay={i * 80}>
               <Panel className={`group ${t.expPanel}`}>
                 <div className={t.expSidebar}>
                   {t.expNumber !== "hidden" && (

@@ -11,6 +11,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [colorModes, setColorModes] = useState(loadColorModes)
   const [hasSelectedTheme, setHasSelectedTheme] = useState(stored !== null)
   const [showPicker, setShowPicker] = useState(stored === null)
+  const [pickerSession, setPickerSession] = useState(0)
 
   const themeConfig = useMemo(() => getTheme(themeName), [themeName])
   const colorMode: ColorMode = colorModes[themeName] ?? themeConfig.defaultMode
@@ -44,7 +45,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setHasSelectedTheme(true)
   }, [])
 
-  const openPicker = useCallback(() => setShowPicker(true), [])
+  const openPicker = useCallback(() => {
+    setPickerSession((s) => s + 1)
+    setShowPicker(true)
+  }, [])
   const closePicker = useCallback(() => {
     if (hasSelectedTheme) setShowPicker(false)
   }, [hasSelectedTheme])
@@ -71,6 +75,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setColorMode,
     toggleColorMode,
     showPicker,
+    pickerSession,
     openPicker,
     closePicker,
     confirmTheme,

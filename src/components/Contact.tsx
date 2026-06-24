@@ -27,9 +27,9 @@ export default function Contact() {
   const { classes: t } = useTheme()
 
   return (
-    <section id="contact" className={t.section}>
+    <section id="contact" className={`${t.section} section-spotlight relative`}>
       <div className={t.container}>
-        <ScrollReveal variant="up">
+        <ScrollReveal variant="fade">
           <SectionHeader
             label="Contact"
             title={t.textTransform === "uppercase" ? "OPEN CHANNEL" : "Get in Touch"}
@@ -39,11 +39,12 @@ export default function Contact() {
                 : "Open to freelance projects and full-time roles. I typically respond within 24 hours."
             }
             icon="mail"
+            emphasis="primary"
           />
         </ScrollReveal>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch">
-          <ScrollReveal variant="left" delay={100} className="h-full">
+          <ScrollReveal variant="fade" delay={80} className="h-full">
             <form className="h-full" onSubmit={(e) => e.preventDefault()}>
               <Panel className="flex h-full flex-col space-y-5 p-8">
                 <p className={`${t.fontSans} text-[10px] ${t.textTransform} tracking-widest ${t.textAccent2}`}>
@@ -68,7 +69,7 @@ export default function Contact() {
             </form>
           </ScrollReveal>
 
-          <ScrollReveal variant="right" delay={200} className="h-full">
+          <ScrollReveal variant="fade" delay={160} className="h-full">
             <Panel className="flex h-full flex-col p-8">
                 <h3 className={`${t.fontDisplay} text-sm font-bold ${t.textTransform} tracking-wider ${t.textPrimary}`}>
                   {t.textTransform === "uppercase" ? "UPLINK STATUS" : "Contact Info"}
