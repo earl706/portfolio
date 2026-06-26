@@ -269,6 +269,16 @@ export const darkPatches: Record<ThemeName, LightPatch> = {
       textMuted: "text-neutral-400",
       textAccent: "text-white",
       textAccent2: "text-neutral-300",
+      textHighlight: "text-neutral-50",
+      sectionLabel: "font-[Inter] text-xs font-medium uppercase tracking-[0.2em] text-neutral-500",
+      sectionTitle: "font-[Inter] text-3xl font-light tracking-tight text-neutral-100 sm:text-4xl",
+      sectionDesc: "mt-6 max-w-xl font-[Inter] text-base leading-relaxed text-neutral-400",
+      navLink:
+        "px-2 py-2 font-[Inter] text-sm text-neutral-400 transition-colors duration-300 hover:text-neutral-100",
+      navMobile: "block py-2 font-[Inter] text-sm text-neutral-100",
+      logo: "group flex items-center gap-3 font-[Inter] text-sm font-semibold tracking-tight text-neutral-100",
+      logoAccent: "text-neutral-100",
+      logoDot: "text-neutral-500",
       heroBoot: "font-[Inter] text-sm text-neutral-400",
       heroOperator: "block text-xs font-medium uppercase tracking-[0.25em] text-neutral-400",
       heroName: "mt-3 block font-[Inter] text-4xl font-light tracking-tight text-neutral-100 sm:text-5xl",
@@ -281,6 +291,35 @@ export const darkPatches: Record<ThemeName, LightPatch> = {
       panel: "border-t border-neutral-800 pt-8 transition-opacity duration-700 hover:opacity-80",
       btnPrimary: "inline-flex items-center gap-2 bg-white px-6 py-3 font-[Inter] text-sm font-medium text-neutral-950",
       btnSecondary: "inline-flex items-center gap-2 border border-neutral-600 px-6 py-3 font-[Inter] text-sm font-medium text-white",
+      tag: "inline-flex items-center gap-1.5 font-[Inter] text-xs text-neutral-300 transition-colors duration-300 hover:text-neutral-100",
+      input:
+        "w-full border-0 border-b border-neutral-600 bg-transparent px-0 py-3 font-[Inter] text-sm text-neutral-100 placeholder:text-neutral-500 outline-none transition-all duration-300 focus:border-neutral-300",
+      skillRow:
+        "flex items-center gap-3 border-b border-neutral-800 py-3 font-[Inter] text-sm text-neutral-300 transition-colors duration-300 hover:text-neutral-100",
+      skillCategoryTitle: "font-[Inter] text-sm font-medium text-neutral-100",
+      skillCategoryCode: "font-[Inter] text-xs text-neutral-500",
+      skillDivider: "mb-6 border-b border-neutral-800 pb-4",
+      projectTitle:
+        "font-[Inter] text-lg font-medium text-neutral-100 transition-colors duration-300 group-hover:text-neutral-300",
+      projectDesc: "mt-2 flex-1 font-[Inter] text-sm leading-relaxed text-neutral-400",
+      projectFeatured: "font-[Inter] text-xs text-neutral-300",
+      projectLinkPrimary:
+        "font-[Inter] text-sm text-neutral-100 underline underline-offset-4 transition-opacity duration-300 hover:opacity-60",
+      projectLinkSecondary:
+        "font-[Inter] text-sm text-neutral-400 underline underline-offset-4 transition-opacity duration-300 hover:opacity-60",
+      expRole: "mt-2 font-[Inter] text-lg font-medium text-neutral-100",
+      expCompany: "mt-1 font-[Inter] text-sm text-neutral-400",
+      expItem: "mt-3 font-[Inter] text-sm leading-relaxed text-neutral-400",
+      expPeriod: "font-[Inter] text-xs text-neutral-500",
+      traitCode: "font-[Inter] text-xs text-neutral-500",
+      contactLabel: "mb-2 block font-[Inter] text-xs font-medium uppercase tracking-wider text-neutral-500",
+      contactLink:
+        "font-[Inter] text-sm text-neutral-100 underline underline-offset-4 transition-opacity duration-300 hover:opacity-60",
+      socialLink:
+        "font-[Inter] text-sm text-neutral-400 transition-opacity duration-300 hover:opacity-60",
+      footerText: "font-[Inter] text-xs text-neutral-500",
+      footerLink: "font-[Inter] text-xs text-neutral-100 transition-opacity duration-300 hover:opacity-60",
+      iconWrap: "flex h-9 w-9 items-center justify-center text-neutral-100",
       header: "fixed inset-x-0 top-0 z-50 border-b border-neutral-800 bg-neutral-950/90 backdrop-blur-sm",
       footer: "border-t border-neutral-800 px-6 py-12",
       photoInner: "relative aspect-square overflow-hidden border border-neutral-800 bg-neutral-900",
@@ -351,6 +390,8 @@ export const darkPatches: Record<ThemeName, LightPatch> = {
         "flex h-9 w-9 items-center justify-center rounded-sm border border-stone-600 text-stone-300 transition-all duration-500 hover:bg-stone-800 hover:text-stone-100",
       pickerPage: "min-h-screen bg-stone-900 px-6 py-20",
       settingsOverlay: "fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm",
+      iconWrap:
+        "flex h-10 w-10 items-center justify-center rounded-sm border border-stone-600 bg-stone-800 text-[#a8c5b5]",
       modeToggle: "inline-flex rounded-sm border border-stone-600 bg-stone-800 p-0.5",
       modeToggleActive: "bg-[#a8c5b5] text-stone-900",
     },

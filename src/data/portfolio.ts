@@ -55,6 +55,11 @@ export const projects = [
     preview: "ecommerce" as const,
     description:
       "Full-stack marketplace with real-time inventory, Stripe payments, and admin analytics dashboard.",
+    highlights: [
+      "Stripe checkout with webhook-driven order fulfillment",
+      "Admin analytics for sales, inventory, and customer cohorts",
+      "Role-based access for vendors, admins, and customers",
+    ],
     tags: ["React", "Django", "PostgreSQL", "Tailwind CSS"],
     liveUrl: "#",
     repoUrl: "#",
@@ -65,6 +70,11 @@ export const projects = [
     preview: "kanban" as const,
     description:
       "Real-time project management tool with drag-and-drop boards, team chat, and role-based access.",
+    highlights: [
+      "Drag-and-drop kanban boards with optimistic UI updates",
+      "Team chat and activity feed tied to task events",
+      "Permissions for owners, editors, and viewers",
+    ],
     tags: ["Vue", "Django", "JavaScript", "Tailwind CSS"],
     liveUrl: "#",
     repoUrl: "#",
@@ -75,6 +85,11 @@ export const projects = [
     preview: "saas" as const,
     description:
       "SaaS platform leveraging LLM APIs for content generation with usage tracking and subscription billing.",
+    highlights: [
+      "Prompt templates with tone and length controls",
+      "Token usage metering and plan-based rate limits",
+      "Subscription billing with usage dashboards",
+    ],
     tags: ["TypeScript", "Python", "React", "Django"],
     liveUrl: "#",
     repoUrl: "#",
@@ -85,12 +100,19 @@ export const projects = [
     preview: "dashboard" as const,
     description:
       "Infrastructure monitoring dashboard aggregating metrics from multiple cloud providers in one view.",
+    highlights: [
+      "Unified metrics from AWS, GCP, and on-prem sources",
+      "Alert routing with severity-based escalation",
+      "Historical charts for CPU, memory, and latency",
+    ],
     tags: ["Vue", "Python", "Git", "Tailwind CSS"],
     liveUrl: "#",
     repoUrl: "#",
     featured: false,
   },
 ] as const
+
+export type Project = (typeof projects)[number]
 
 export const experience = [
   {

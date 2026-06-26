@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
+import { lockBodyScroll } from "../lib/scrollLock"
 import { useTheme } from "../themes/useTheme"
 import type { ColorMode, ThemeName } from "../themes/types"
 import ColorModeToggle from "./ColorModeToggle"
@@ -34,7 +35,7 @@ function ThemePickerDialog({
 
   return (
     <div
-      className={`theme-picker-overlay ${visible ? "is-open" : ""} ${t.settingsOverlay} flex items-center justify-center overflow-hidden p-3 sm:p-4`}
+      className={`theme-picker-overlay scroll-lock-compensate ${visible ? "is-open" : ""} ${t.settingsOverlay} flex items-center justify-center overflow-hidden p-3 sm:p-4`}
       role="dialog"
       aria-modal="true"
       aria-label="Choose a visual theme"
@@ -84,7 +85,7 @@ function ThemePickerDialog({
                   isActive ? t.pickerCardActive : ""
                 }`}
               >
-                <span className={`flex h-8 w-8 shrink-0 items-center justify-center ${t.textAccent}`}>
+                <span className={`theme-icon-wrap flex h-8 w-8 shrink-0 items-center justify-center ${t.textAccent}`}>
                   <ThemeIcon name={config.name} className="h-6 w-6 sm:h-7 sm:w-7" />
                 </span>
                 <p
@@ -133,13 +134,9 @@ export default function ThemePicker() {
     return () => cancelAnimationFrame(frame)
   }, [showPicker])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!shouldRender) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = "hidden"
-    return () => {
-      document.body.style.overflow = prev
-    }
+    return lockBodyScroll()
   }, [shouldRender])
 
   useEffect(() => {

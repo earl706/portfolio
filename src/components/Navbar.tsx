@@ -9,7 +9,7 @@ export default function Navbar() {
   const { classes: t, openPicker, colorMode, setColorMode } = useTheme()
 
   return (
-    <header className={t.header}>
+    <header className={`${t.header} scroll-lock-compensate`}>
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         <a href="#" className={t.logo}>
           <img

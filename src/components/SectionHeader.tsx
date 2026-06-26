@@ -52,7 +52,7 @@ export default function SectionHeader({
     <div className={isPrimary ? "section-header-primary mb-16" : "section-header-secondary mb-10"}>
       <div className="mb-2 flex items-center gap-3">
         {icon && (
-          <span className={`${t.iconHover} ${t.iconWrap}`}>{sectionIcons[icon]}</span>
+          <span className={`theme-icon-wrap ${t.iconHover} ${t.iconWrap}`}>{sectionIcons[icon]}</span>
         )}
         <p className={t.sectionLabel}>
           {t.textTransform === "uppercase" ? `// ${label}` : label}
